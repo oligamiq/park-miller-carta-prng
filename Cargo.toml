@@ -4,3 +4,7 @@ version = "0.1.0"
 authors = ["kenOfYugen <kenzone@gmail.com>"]
 
 [dependencies]
+
+[build-dependencies]
+bindgen = "0.32.3"
+cc = { version = "1.0.4", features = ["parallel"] }
