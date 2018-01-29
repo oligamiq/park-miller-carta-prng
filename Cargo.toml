@@ -1,0 +1,6 @@
+[package]
+name = "node_wasm"
+version = "0.1.0"
+authors = ["kenOfYugen <kenzone@gmail.com>"]
+
+[dependencies]
