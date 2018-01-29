@@ -1,5 +1,5 @@
 [package]
-name = "node_wasm"
+name = "park-miller-carta-prng"
 version = "0.1.0"
 authors = ["kenOfYugen <kenzone@gmail.com>"]
 
