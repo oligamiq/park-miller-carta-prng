@@ -15,6 +15,7 @@ fn build_bindings(sources_dir: &str, out_dir: &str) {
     let out_path = PathBuf::from(out_dir);
 
     bindgen::Builder::default()
+        .rustfmt_bindings(true)
         .header(sources_dir.to_owned() + "rand31-park-miller-carta-int.h")
         .generate()
         .expect("Unable to generate bindings")
