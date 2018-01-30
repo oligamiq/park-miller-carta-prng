@@ -6,11 +6,13 @@ pub mod bindings;
 
 
 #[cfg(test)]
-mod data_race {
+mod data_race_demonstration {
   use std::{thread, time};
   use archive::bindings::*;
 
   #[test]
+  #[ignore]
+  #[should_panic(expected = "assertion failed")]
   fn test_a_few_random_u64s() {
     let expected_sequence: [u64; 10] = [
       16807,
@@ -29,17 +31,17 @@ mod data_race {
 
     let ten_ms = time::Duration::from_millis(10);
 
-    let race = expected_sequence.iter()
-      .map(|number| {
+    expected_sequence.iter()
+      .for_each(|number| {
         thread::sleep(ten_ms);
         let current_u64 = unsafe {rand31pmc_next()};
-        *number == current_u64
-      }).any(|result| result == false);
-
-    assert!(race);
+        assert_eq!(*number, current_u64);
+      });
   }
 
   #[test]
+  #[ignore]
+  #[should_panic(expected = "assertion failed")]
   fn test_a_few_random_f32s() {
     let expected_sequence: [f32; 10] = [
       0.000007826369,
@@ -58,13 +60,11 @@ mod data_race {
 
     let ten_ms = time::Duration::from_millis(10);
 
-    let race = expected_sequence.iter()
-      .map(|number| {
+    expected_sequence.iter()
+      .for_each(|number| {
         thread::sleep(ten_ms);
         let current_f32 = unsafe {rand31pmc_ranf()};
-        *number == current_f32
-      }).any(|result| result == false);
-
-    assert!(race);
+        assert_eq!(*number, current_f32);
+      });
   }
 }
