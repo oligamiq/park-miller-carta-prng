@@ -38,6 +38,7 @@ mod conformance_test {
   use archive::bindings::*;
   use PRNG;
 
+  #[ignore]
   #[test]
   fn full_period_integer_check() {
       let mut prng = PRNG::new(1);
@@ -46,5 +47,66 @@ mod conformance_test {
       for _ in 1..2147483648 as u64 {
         assert_eq!(unsafe { rand31pmc_next() }, prng.next_unsigned_integer());
       }
+  }
+}
+
+
+#[cfg(test)]
+mod thread_safe_demonstration {
+  use std::{thread, time};
+  use PRNG;
+
+  #[test]
+  fn test_a_few_random_u64s() {
+    let expected_sequence: [u64; 10] = [
+      16807,
+      282475249,
+      1622650073,
+      984943658,
+      1144108930,
+      470211272,
+      101027544,
+      1457850878,
+      1458777923,
+      2007237709,
+    ];
+
+    let mut prng = PRNG::new(1);
+
+    let ten_ms = time::Duration::from_millis(10);
+
+    expected_sequence.iter()
+      .for_each(|number| {
+        thread::sleep(ten_ms);
+        let current_u64 = prng.next_unsigned_integer();
+        assert_eq!(*number, current_u64);
+      });
+  }
+
+  #[test]
+  fn test_a_few_random_f32s() {
+    let expected_sequence: [f32; 10] = [
+      0.000007826369,
+      0.1315378,
+      0.75560534,
+      0.45865014,
+      0.53276724,
+      0.21895918,
+      0.047044616,
+      0.6788647,
+      0.67929643,
+      0.9346929,
+    ];
+
+    let mut prng = PRNG::new(1);
+
+    let ten_ms = time::Duration::from_millis(10);
+
+    expected_sequence.iter()
+      .for_each(|number| {
+        thread::sleep(ten_ms);
+        let current_f32 = prng.next_unsigned_float();
+        assert_eq!(*number, current_f32);
+      });
   }
 }
