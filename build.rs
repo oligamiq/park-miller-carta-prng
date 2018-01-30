@@ -23,8 +23,8 @@ fn build_bindings(sources_dir: &str, out_dir: &str) {
 }
 
 fn build(sources_dir: &str, bindings_out_dir: &str, clib_out_dir: &str) {
-    build_c(sources_dir, clib_out_dir);
     build_bindings(sources_dir, bindings_out_dir);
+    build_c(sources_dir, clib_out_dir);
 }
 
 fn main() {
