@@ -25,6 +25,7 @@ fn build_bindings(sources_dir: &str, out_dir: &str) {
 }
 
 fn build(sources_dir: &str, bindings_out_dir: &str) {
+    #[cfg(target_os = "emscripten")] // weird wasm32-unknown-emscripten failure
     build_bindings(sources_dir, bindings_out_dir);
     build_c(sources_dir);
 }
@@ -33,6 +34,5 @@ fn main() {
     let sources_dir = "./archive/rand31-park-miller-carta/";
     let bindings_out_dir = "./src/archive";
 
-    #[cfg(target_os = "emscripten")]
     build(sources_dir, bindings_out_dir);
 }
