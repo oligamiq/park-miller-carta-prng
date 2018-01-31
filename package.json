@@ -6,9 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "mkdirs": "mkdir -p dist/asmjs && mkdir dist/wasm",
+    "build:coffee": "coffee -b --no-header -o dist/ src/index.coffee",
     "build:asmjs": "cargo b --target asmjs-unknown-emscripten --release && rsync target/asmjs-unknown-emscripten/release/emscripten.js dist/asmjs/",
     "build:wasm": "cargo b --target wasm32-unknown-emscripten --release && rsync --exclude=*.d target/wasm32-unknown-emscripten/release/emscripten.* dist/wasm/",
-    "build:all": "npm run mkdirs && npm run build:asmjs && npm run build:wasm"
+    "build:all": "npm run mkdirs && npm run build:coffee && npm run build:asmjs && npm run build:wasm"
   },
   "keywords": [],
   "author": "",
