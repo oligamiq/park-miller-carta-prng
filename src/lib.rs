@@ -80,12 +80,11 @@ pub mod c_api {
     }
 }
 
-#[cfg(test)]
+#[cfg(all(test, not(debug)))]
 mod conformance_test {
     use archive::bindings::*;
     use PRNG;
 
-    #[ignore]
     #[test]
     fn full_period_integer_check() {
         let mut prng = PRNG::new(1);
