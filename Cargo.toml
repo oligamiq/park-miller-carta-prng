@@ -16,5 +16,5 @@ crate-type = ["dylib", "rlib"]
 
 
 [[bin]]
-name = "wasm"
-path = "src/wasm.rs"
+name = "emscripten"
+path = "src/emscripten.rs"
