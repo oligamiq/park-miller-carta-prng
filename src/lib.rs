@@ -80,7 +80,7 @@ pub mod c_api {
     }
 }
 
-#[cfg(all(test, not(debug)))]
+#[cfg(all(test, not(debug_assertions)))]
 mod conformance_test {
     use archive::bindings::*;
     use PRNG;
