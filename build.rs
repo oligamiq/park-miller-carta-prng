@@ -4,7 +4,7 @@ extern crate cc;
 use std::path::PathBuf;
 use cc::Build;
 
-fn build_c(sources_dir: &str, out_dir: &str){
+fn build_c(sources_dir: &str, out_dir: &str) {
     Build::new()
         .file(sources_dir.to_owned() + "rand31-park-miller-carta-int.c")
         .out_dir(out_dir)
@@ -29,9 +29,9 @@ fn build(sources_dir: &str, bindings_out_dir: &str, clib_out_dir: &str) {
 }
 
 fn main() {
-    let sources_dir = "./archive/rand31-park-miller-carta/"; 
+    let sources_dir = "./archive/rand31-park-miller-carta/";
     let clib_out_dir = "./target/";
     let bindings_out_dir = "./src/archive";
 
-    build(sources_dir, bindings_out_dir, clib_out_dir);   
+    build(sources_dir, bindings_out_dir, clib_out_dir);
 }
