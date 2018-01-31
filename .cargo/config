@@ -1,4 +1,4 @@
 [target.'cfg(target_os = "emscripten")']
 rustflags = [
-    "-Clink-args=-s EXPORTED_FUNCTIONS=['_prng_new','_prng_destroy','_next_unsigned_integer','_next_unsigned_float'] -s EXTRA_EXPORTED_RUNTIME_METHODS=['cwrap'] -s ALLOW_MEMORY_GROWTH=1",
+    "-Clink-args=-s EXPORTED_FUNCTIONS=['_prng_new','_prng_destroy','_next_unsigned_integer','_next_unsigned_float'] -s EXTRA_EXPORTED_RUNTIME_METHODS=['cwrap'] -s ALLOW_MEMORY_GROWTH=1 -s SINGLE_FILE=1 -s BINARYEN_ASYNC_COMPILATION=0",
 ]
