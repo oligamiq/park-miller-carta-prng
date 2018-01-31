@@ -1,20 +1,18 @@
-asmjs = require "#{__dirname}/../dist/asmjs/emscripten.js"
+prng = (lib) -> 
+  prng_new = lib.cwrap('prng_new', 'number', ['number']);
+  prng_destroy = lib.cwrap('prng_destroy', '', ['number']);
+  next_unsigned_integer = lib.cwrap('next_unsigned_integer', 'number', ['number']);
+  next_unsigned_float = lib.cwrap('next_unsigned_float', 'number', ['number']);
+  (seed) ->
+    ptr = prng_new seed
+    getInteger = -> next_unsigned_integer ptr
+    getFloat = -> next_unsigned_float ptr
+    destroy = -> prng_destroy ptr
 
-prng_new = asmjs.cwrap('prng_new', 'number', ['number']);
-prng_destroy = asmjs.cwrap('prng_destroy', '', ['number']);
-next_unsigned_integer = asmjs.cwrap('next_unsigned_integer', 'number', ['number']);
-next_unsigned_float = asmjs.cwrap('next_unsigned_float', 'number', ['number']);
-
-prng = (seed) ->
-  ptr = prng_new seed
-  getInteger = -> next_unsigned_integer ptr
-  getFloat = -> next_unsigned_float ptr
-  destroyPtr = -> prng_destroy ptr
-
-  {
-    getInteger
-    getFloat
-    destroy
-  }
+    {
+      getInteger
+      getFloat
+      destroy
+    }
 
 module.exports = prng
