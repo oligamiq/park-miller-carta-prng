@@ -33,6 +33,37 @@ impl PRNG {
   }
 }
 
+#[no_mangle]
+pub extern "C" fn prng_new(seed: u64) -> *mut PRNG {
+  Box::into_raw(Box::new(PRNG::new(seed)))
+}
+
+#[no_mangle]
+pub extern "C" fn prng_destroy(ptr: *mut PRNG) {
+  if ptr.is_null() { return }
+  unsafe { Box::from_raw(ptr); }
+}
+
+#[no_mangle]
+pub extern "C" fn next_unsigned_integer(ptr: *mut PRNG) -> u64 {
+  let prng = unsafe {
+    assert!(!ptr.is_null());
+    &mut *ptr
+  };
+
+  prng.next_unsigned_integer()
+}
+#[no_mangle]
+pub extern "C" fn next_unsigned_float(ptr: *mut PRNG) -> f32 {
+  let prng = unsafe {
+    assert!(!ptr.is_null());
+    &mut *ptr
+  };
+
+  prng.next_unsigned_float()
+}
+
+
 #[cfg(test)]
 mod conformance_test {
   use archive::bindings::*;
