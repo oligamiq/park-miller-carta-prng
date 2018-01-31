@@ -8,3 +8,13 @@ authors = ["kenOfYugen <kenzone@gmail.com>"]
 [target.'cfg(not(target_os = "emscripten"))'.build-dependencies]
 bindgen = "0.32.3"
 cc = { version = "1.0.4", features = ["parallel"] }
+
+[lib]
+name = "prng"
+path = "src/lib.rs"
+crate-type = ["dylib", "rlib"]
+
+
+[[bin]]
+name = "wasm"
+path = "src/wasm.rs"

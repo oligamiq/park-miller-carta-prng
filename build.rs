@@ -33,5 +33,6 @@ fn main() {
     let sources_dir = "./archive/rand31-park-miller-carta/";
     let bindings_out_dir = "./src/archive";
 
+    #[cfg(target_os = "emscripten")]
     build(sources_dir, bindings_out_dir);
 }
