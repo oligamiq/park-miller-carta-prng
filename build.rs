@@ -25,7 +25,12 @@ fn build_bindings(sources_dir: &str, out_dir: &str) {
 }
 
 fn build(sources_dir: &str, bindings_out_dir: &str) {
-    #[cfg(target_os = "emscripten")] // weird wasm32-unknown-emscripten failure
+    /* 
+    // weird wasm32-unknown-emscripten failure
+    // without this cfg :/
+    // the expected not() doesn't solve it
+    */
+    #[cfg(target_os = "emscripten")]
     build_bindings(sources_dir, bindings_out_dir);
     build_c(sources_dir);
 }
