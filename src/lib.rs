@@ -8,7 +8,12 @@ pub struct PRNG {
 
 impl PRNG {
   pub fn new(seed: u64) -> PRNG {
-    PRNG {seed: seed}
+    let sanitized_seed = match seed {
+      0 => 1,
+      _ => seed,
+    };
+
+    PRNG {seed: sanitized_seed}
   }
 
   pub fn next_unsigned_integer(&mut self) -> u64 {
