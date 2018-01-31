@@ -44,6 +44,7 @@ impl PRNG {
 
 pub mod c_api {
     use PRNG;
+    use std::ptr;
 
     #[no_mangle]
     pub extern "C" fn prng_new(seed: u64) -> *mut PRNG {
@@ -51,12 +52,13 @@ pub mod c_api {
     }
 
     #[no_mangle]
-    pub extern "C" fn prng_destroy(ptr: *mut PRNG) {
+    pub extern "C" fn prng_destroy(mut ptr: *mut PRNG) {
         if ptr.is_null() {
             return;
         }
         unsafe {
             Box::from_raw(ptr);
+            ptr = ptr::null_mut();
         }
     }
 
