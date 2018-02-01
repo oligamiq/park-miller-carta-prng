@@ -1,7 +1,7 @@
 {
   "name": "park-miller-carta-prng",
   "version": "0.1.0",
-  "description": "",
+  "description": "An efficient Pseudo-Random Number Generator",
   "main": "dist/index.js",
   "scripts": {
     "test": "coffee src/test.coffee",
@@ -11,8 +11,8 @@
     "build:wasm": "cargo b --target wasm32-unknown-emscripten --release && rsync --exclude=*.d target/wasm32-unknown-emscripten/release/emscripten.* dist/wasm/",
     "build:all": "npm run mkdirs && npm run build:coffee && npm run build:asmjs && npm run build:wasm"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["prng", "random", "carta", "miller", "park"],
+  "author": "kenofyugen",
   "license": "MIT",
   "devDependencies": {
     "coffeescript": "^2.1.1",
