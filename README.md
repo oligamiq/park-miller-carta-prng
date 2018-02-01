@@ -1,5 +1,6 @@
-# Park-Miller-Carta PRNG
+# Park-Miller-Carta PRNG [WIP]
 
+*(documentation in progress)*
 This is a multi-language repository, demonstrating C-Rust-Node.js-Web interoperability.
 
 It utilizes Rust as a build system, in order to compile [the original C implemetations by Robin Whittle](http://www.firstpr.com.au/dsp/rand31/). A faithful Rust port is also included, cross-compilable to asm.js and WebAssembly via [Emscripten](https://github.com/kripken/emscripten), for use in Node.js and browsers.
