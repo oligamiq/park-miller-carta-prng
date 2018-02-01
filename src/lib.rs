@@ -1,12 +1,20 @@
+/// This module is an ffi interface to the original C implementation.
 pub mod archive;
 
 const CONSTAPMC: u16 = 16807;
 
+/// The `PRNG` struct is a re-implemention of the C library
 pub struct PRNG {
     seed: u64,
 }
 
 impl PRNG {
+    /// takes a `u64` seed, and sanitizes the input for `0`
+    /// # Example
+    /// ```
+    /// use PRNG;
+    /// let prng = PRNG::new(1);
+    /// ```
     pub fn new(seed: u64) -> PRNG {
         let sanitized_seed = match seed {
             0 => 1,
@@ -17,7 +25,14 @@ impl PRNG {
             seed: sanitized_seed,
         }
     }
-
+    /// generates next integer
+    /// # Example
+    /// ```
+    /// use PRNG;
+    /// let prng = PRNG::new(1);
+    /// let random_integer = prng.next_unsigned_integer();
+    /// assert_eq!(16807, random_integer);
+    /// ```
     pub fn next_unsigned_integer(&mut self) -> u64 {
         let hi: u64;
         let mut lo: u64;
@@ -32,16 +47,31 @@ impl PRNG {
         self.seed = lo;
         lo
     }
-
+    /// generates next float
+    /// # Example
+    /// ```
+    /// use PRNG;
+    /// let prng = PRNG::new(1);
+    /// let random_float = prng.next_unsigned_float();
+    /// assert_eq!(0.000007826369, random_float);
+    /// ```
     pub fn next_unsigned_float(&mut self) -> f32 {
         self.next_unsigned_integer() as f32 / 2147483647.0
     }
-
+    /// returns the current seed
+    /// # Example
+    /// ```
+    /// use PRNG;
+    /// let prng = PRNG::new(1);
+    /// let current_seed = prng.current_seed();
+    /// assert_eq!(1, random_seed);
+    /// ```
     pub fn current_seed(&self) -> u64 {
         self.seed
     }
 }
 
+/// A C API for calling the Rust implementation.
 pub mod c_api {
     use PRNG;
     use std::ptr;
