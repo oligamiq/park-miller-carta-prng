@@ -1,3 +1,6 @@
+asmjs = require "#{__dirname}/../dist/asmjs/emscripten.js"
+wasm = require "#{__dirname}/../dist/wasm/emscripten.js"
+
 prng = (lib) -> 
   prng_new = lib.cwrap('prng_new', 'number', ['number']);
   prng_destroy = lib.cwrap('prng_destroy', '', ['number']);
@@ -15,4 +18,8 @@ prng = (lib) ->
       destroy
     }
 
-module.exports = prng
+module.exports = {
+  prng
+  asmjs
+  wasm
+}
