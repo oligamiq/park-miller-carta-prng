@@ -5,6 +5,7 @@
 //!
 //! A new C API is re-exported, derived from the Rust version. It can be used from C and in other platforms, e.g Node.js.
 //! The C API is also used when targeting asm.js/WebAssembly.
+//! For more information, visit [the repository](https://github.com/kenOfYugen/park-miller-carta-prng).
 //!
 //! Use this library if you require an efficient Pseudo-Random Number Generator, not recommended for cryptography.
 //!
