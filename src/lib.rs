@@ -3,11 +3,14 @@
 //! The `prng` crate is a re-implementation of [the original Park-Miller-Carta PRNG implemented by Robin Whittle](http://www.firstpr.com.au/dsp/rand31/).
 //! The original code can be found in the `archive` directory.
 //!
-//! A new C API is re-exported, derived from the Rust version.
+//! A new C API is re-exported, derived from the Rust version. It can be used from C and in other platforms, e.g Node.js.
+//! The C API is also used when targeting asm.js/WebAssembly.
 //!
-//! Use this library if you require an efficient PRNG, not recommended for cryptography.
+//! Use this library if you require an efficient Pseudo-Random Number Generator, not recommended for cryptography.
+//!
+//! Test compliance with the original code by executing `cargo t --release`
 
-/// This module is an ffi interface to the original C implementation.
+/// An FFI interface to the original C implementation.
 pub mod archive;
 
 const CONSTAPMC: u16 = 16807;
@@ -80,46 +83,8 @@ impl PRNG {
     }
 }
 
-/// A C API for calling the Rust implementation.
-pub mod c_api {
-    use PRNG;
-    use std::ptr;
-
-    #[no_mangle]
-    pub extern "C" fn prng_new(seed: u64) -> *mut PRNG {
-        Box::into_raw(Box::new(PRNG::new(seed)))
-    }
-
-    #[no_mangle]
-    pub extern "C" fn prng_destroy(mut ptr: *mut PRNG) {
-        if ptr.is_null() {
-            return;
-        }
-        unsafe {
-            Box::from_raw(ptr);
-            ptr = ptr::null_mut();
-        }
-    }
-
-    #[no_mangle]
-    pub extern "C" fn next_unsigned_integer(ptr: *mut PRNG) -> u64 {
-        let prng = unsafe {
-            assert!(!ptr.is_null());
-            &mut *ptr
-        };
-
-        prng.next_unsigned_integer()
-    }
-    #[no_mangle]
-    pub extern "C" fn next_unsigned_float(ptr: *mut PRNG) -> f32 {
-        let prng = unsafe {
-            assert!(!ptr.is_null());
-            &mut *ptr
-        };
-
-        prng.next_unsigned_float()
-    }
-}
+/// C API derived from the Rust re-implementation.
+pub mod c_api;
 
 #[cfg(all(test, not(debug_assertions)))]
 mod conformance_test {
