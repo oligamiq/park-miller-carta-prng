@@ -1,3 +1,12 @@
+//! # prng
+//!
+//! The `prng` crate is a re-implementation of [the original Park-Miller-Carta PRNG implemented by Robin Whittle](http://www.firstpr.com.au/dsp/rand31/).
+//! The original code can be found in the `archive` directory.
+//!
+//! A new C API is re-exported, derived from the Rust version.
+//!
+//! Use this library if you require an efficient PRNG, not recommended for cryptography.
+
 /// This module is an ffi interface to the original C implementation.
 pub mod archive;
 
