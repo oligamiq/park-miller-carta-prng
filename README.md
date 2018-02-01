@@ -52,9 +52,9 @@ fn main() {
 
 ## Getting Started
 1. Clone the repository:
-`git clone https://github.com/kenOfYugen/rust_node_wasm`
+`git clone https://github.com/kenOfYugen/park-miller-carta-prng`
 2. Enter the directory:
-`cd rust_node_wasm`
+`cd park-miller-carta-prng`
 3. Build (add the `--release` flag for optimized builds)
   * Rust-C static/dynamic libraries: `cargo b`
   * asm.js library: `cargo b --target asmjs-unknown-emscripten`
