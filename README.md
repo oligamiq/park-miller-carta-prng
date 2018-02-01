@@ -59,9 +59,16 @@ fn main() {
   * Rust-C static/dynamic libraries: `cargo b`
   * asm.js library: `cargo b --target asmjs-unknown-emscripten`
   * wasm library: `cargo b --target wasm32-unknown-emscripter`
-  * Node.js: `npm run build:all`
+  * Node.js: `npm i && npm run build:all`
 
 ### Prerequisites
 * Rust, get it via [rustup](https://www.rustup.rs/).
 * [Node.js](https://nodejs.org/en/) for running asm.js/wasm.
 * [emsdk](https://developer.mozilla.org/en-US/docs/WebAssembly/C_to_wasm), for compilation to asm.js/wasm.
+
+#### Checklist
+- [x] Rust API
+- [x] C API
+- [x] Node.js asm.js/wasm via `emscripten`
+- [ ] Browser asm.js/wasm via `emscripten`
+- [ ] wasm via `--target wasm32-unknown-unknown`
