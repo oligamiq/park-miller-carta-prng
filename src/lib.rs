@@ -73,7 +73,7 @@ impl PRNG {
     /// use PRNG;
     /// let prng = PRNG::new(1);
     /// let current_seed = prng.current_seed();
-    /// assert_eq!(1, random_seed);
+    /// assert_eq!(1, current_seed);
     /// ```
     pub fn current_seed(&self) -> u64 {
         self.seed
