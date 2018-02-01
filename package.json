@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "mkdirs": "rm -rf dist && mkdir -p dist/asmjs && mkdir dist/wasm",
+    "mkdirs": "del-cli dist && make-dir dist/asmjs && make-dir dist/wasm",
     "build:coffee": "coffee -b --no-header -o dist/ src/index.coffee",
     "build:asmjs": "cargo b --target asmjs-unknown-emscripten --release && rsync target/asmjs-unknown-emscripten/release/emscripten.js dist/asmjs/",
     "build:wasm": "cargo b --target wasm32-unknown-emscripten --release && rsync --exclude=*.d target/wasm32-unknown-emscripten/release/emscripten.* dist/wasm/",
@@ -15,6 +15,8 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "coffeescript": "^2.1.1"
+    "coffeescript": "^2.1.1",
+    "del-cli": "^1.1.0",
+    "make-dir-cli": "^1.0.0"
   }
 }
