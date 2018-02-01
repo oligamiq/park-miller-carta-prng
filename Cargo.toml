@@ -2,6 +2,16 @@
 name = "park-miller-carta-prng"
 version = "0.1.0"
 authors = ["kenOfYugen <kenzone@gmail.com>"]
+license = "MIT"
+repository = "https://github.com/kenOfYugen/park-miller-carta-prng"
+keywords = ["prng", "random", "park", "miller", "carta"]
+exclude = [
+    "public/assets/*",
+    "dist/*",
+    "*.coffee",
+    "*.json",
+    "target/*"
+]
 
 [dependencies]
 
