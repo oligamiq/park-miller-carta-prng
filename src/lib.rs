@@ -21,8 +21,8 @@ impl PRNG {
     /// takes a `u64` seed, and sanitizes the input for `0`
     /// # Example
     /// ```
-    /// use PRNG;
-    /// let prng = PRNG::new(1);
+    /// use prng::PRNG;
+    /// let mut prng = PRNG::new(1);
     /// ```
     pub fn new(seed: u64) -> PRNG {
         let sanitized_seed = match seed {
@@ -37,8 +37,8 @@ impl PRNG {
     /// generates next integer
     /// # Example
     /// ```
-    /// use PRNG;
-    /// let prng = PRNG::new(1);
+    /// use prng::PRNG;
+    /// let mut prng = PRNG::new(1);
     /// let random_integer = prng.next_unsigned_integer();
     /// assert_eq!(16807, random_integer);
     /// ```
@@ -59,8 +59,8 @@ impl PRNG {
     /// generates next float
     /// # Example
     /// ```
-    /// use PRNG;
-    /// let prng = PRNG::new(1);
+    /// use prng::PRNG;
+    /// let mut prng = PRNG::new(1);
     /// let random_float = prng.next_unsigned_float();
     /// assert_eq!(0.000007826369, random_float);
     /// ```
@@ -70,8 +70,8 @@ impl PRNG {
     /// returns the current seed
     /// # Example
     /// ```
-    /// use PRNG;
-    /// let prng = PRNG::new(1);
+    /// use prng::PRNG;
+    /// let mut prng = PRNG::new(1);
     /// let current_seed = prng.current_seed();
     /// assert_eq!(1, current_seed);
     /// ```
