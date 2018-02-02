@@ -1,8 +1,8 @@
 [package]
 name = "park-miller-carta-prng"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["kenOfYugen <kenzone@gmail.com>"]
-description = "An efficient PRNG"
+description = ""An efficient Pseudo-Random Number Generator""
 license = "MIT"
 repository = "https://github.com/kenOfYugen/park-miller-carta-prng"
 keywords = ["prng", "random", "park", "miller", "carta"]
@@ -24,7 +24,6 @@ cc = { version = "1.0.4", features = ["parallel"] }
 name = "prng"
 path = "src/lib.rs"
 crate-type = ["dylib", "rlib"]
-
 
 [[bin]]
 name = "emscripten"
