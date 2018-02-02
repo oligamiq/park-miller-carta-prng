@@ -1,8 +1,12 @@
 {
   "name": "park-miller-carta-prng",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "An efficient Pseudo-Random Number Generator",
   "main": "dist/index.js",
+  "repository" : { 
+    "type" : "git",
+    "url" : "https://github.com/kenOfYugen/park-miller-carta-prng"
+  },
   "scripts": {
     "test": "coffee src/test.coffee",
     "mkdirs": "del-cli dist && make-dir dist/asmjs && make-dir dist/wasm",
