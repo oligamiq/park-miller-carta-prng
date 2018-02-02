@@ -1,4 +1,5 @@
 extern crate bindgen;
+extern crate cbindgen;
 extern crate cc;
 
 use std::path::PathBuf;
@@ -24,20 +25,30 @@ fn build_bindings(sources_dir: &str, out_dir: &str) {
         .expect("Couldn't write bindings!");
 }
 
-fn build(sources_dir: &str, bindings_out_dir: &str) {
-    /* 
+fn build_c_header(header_out: &str) {
+    cbindgen::Builder::new()
+        .with_crate("./")
+        .generate()
+        .expect("Unable to generate header")
+        .write_to_file(header_out.to_owned() + "bindings.h");
+}
+
+fn build(sources_dir: &str, bindings_out_dir: &str, header_out_dir: &str) {
+    /*
     // weird wasm32-unknown-emscripten failure
     // without this cfg :/
     // the expected not() doesn't solve it
-    */
+     */
     #[cfg(target_os = "emscripten")]
     build_bindings(sources_dir, bindings_out_dir);
     build_c(sources_dir);
+    build_c_header(header_out_dir);
 }
 
 fn main() {
     let sources_dir = "./archive/rand31-park-miller-carta/";
-    let bindings_out_dir = "./src/archive";
+    let bindings_out_dir = "./src/archive/";
+    let header_out_dir = "./src/";
 
-    build(sources_dir, bindings_out_dir);
+    build(sources_dir, bindings_out_dir, header_out_dir);
 }
