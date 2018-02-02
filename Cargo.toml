@@ -6,6 +6,7 @@ description = "An efficient Pseudo-Random Number Generator"
 license = "MIT"
 repository = "https://github.com/kenOfYugen/park-miller-carta-prng"
 keywords = ["prng", "random", "park", "miller", "carta"]
+readme = "README.md"
 exclude = [
     "public/assets/*",
     "dist/*",
