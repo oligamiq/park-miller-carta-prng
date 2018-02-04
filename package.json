@@ -10,7 +10,7 @@
   "scripts": {
     "test": "coffee src/test.coffee",
     "configure": "node-gyp configure",
-    "build:addon": "node-gyp rebuild --release",
+    "build:addon": "cargo b --release && node-gyp rebuild --release",
     "mkdirs": "del-cli dist && make-dir dist/asmjs && make-dir dist/wasm",
     "build:coffee": "coffee -b --no-header -o dist/ src/index.coffee",
     "build:asmjs": "cargo b --target asmjs-unknown-emscripten --release && rsync target/asmjs-unknown-emscripten/release/emscripten.js dist/asmjs/",
@@ -33,7 +33,7 @@
     "node-addon-api": "^1.2.0",
     "node-gyp": "^3.6.2"
   },
-  "gypfile": true,
+  "gypfile": false,
   "dependencies": {
     "bindings": "^1.3.0"
   }
