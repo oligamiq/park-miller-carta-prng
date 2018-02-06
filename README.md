@@ -5,6 +5,57 @@ This is a multi-language repository, demonstrating C-Rust-Node.js-Web interopera
 
 It utilizes Rust as a build system, in order to compile [the original C implemetations by Robin Whittle](http://www.firstpr.com.au/dsp/rand31/). A faithful Rust port is also included, cross-compilable to asm.js and WebAssembly via [Emscripten](https://github.com/kripken/emscripten), for use in Node.js and browsers.
 
+## Using from browser
+index.html:
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Wasm</title>
+</head>
+<body>
+
+<script type="text/javascript">
+  var Module = {};
+
+  var prng = {
+    seed: (i) => Module.prng_new(i),
+    destroy: (ptr) => Module.prng_destroy(ptr),
+    getInteger: (ptr) => Module.next_unsigned_integer(ptr),
+    getFloat: (ptr) => Module.next_unsigned_float(ptr)
+  };
+
+  function fetchAndInstantiate(url, importObject) {
+    return fetch(url).then(response =>
+      response.arrayBuffer()
+    ).then(bytes =>
+      WebAssembly.instantiate(bytes, importObject)
+    ).then(results =>
+      results.instance
+    );
+  }
+
+  fetchAndInstantiate('dist/wasm/browser-standalone.wasm', {})
+  .then( mod => {
+    Module.prng_new = mod.exports.prng_new;
+    Module.prng_destroy = mod.exports.prng_destroy;
+    Module.next_unsigned_integer = mod.exports.next_unsigned_integer;
+    Module.next_unsigned_float = mod.exports.next_unsigned_float;
+  })
+  .then( () => {
+    var ptr = prng.seed(1);
+    var container = document.createElement('div');
+    container.textContent = `integer: ${prng.getInteger(ptr)} float: ${prng.getFloat(ptr)}`
+    document.body.appendChild(container);
+    prng.destroy(ptr);
+  });
+
+</script>
+</body>
+</html>
+```
+host the html via `python2 -m SimpleHTTPServer`/`python3 -m http.server` of your preferred method.
+
 ## Using from Node.js
 ### WebAssembly & asm.js
 Add with `npm i --save --only=production park-miller-carta-prng`.
@@ -64,7 +115,8 @@ fn main() {
 3. Build (add the `--release` flag for optimized builds)
   * Rust-C static/dynamic libraries: `cargo b`
   * asm.js library: `cargo b --target asmjs-unknown-emscripten`
-  * wasm library: `cargo b --target wasm32-unknown-emscripter`
+  * wasm library: `cargo b --target wasm32-unknown-emscripten`
+  * standalone wasm library: `cargo b --target wasm32-unknown-unknown`
   * Node.js: `npm i && npm run build:all`
 
 ### Prerequisites
@@ -78,4 +130,4 @@ fn main() {
 - [x] Node.js asm.js/wasm via `emscripten`
 - [x] Node.js native Addon
 - [ ] Browser asm.js/wasm via `emscripten`
-- [ ] wasm via `--target wasm32-unknown-unknown`
+- [x] wasm via `--target wasm32-unknown-unknown`

@@ -11,6 +11,7 @@
     "test": "coffee src/test.coffee",
     "configure": "node-gyp configure",
     "build:addon": "cargo b --release && node-gyp rebuild --release",
+    "build:wasm:browser": "cargo b --release --target wasm32-unknown-unknown && rsync target/wasm32-unknown-unknown/release/emscripten.wasm dist/wasm/browser-standalone.wasm",
     "mkdirs": "del-cli dist && make-dir dist/asmjs && make-dir dist/wasm",
     "build:coffee": "coffee -b --no-header -o dist/ src/index.coffee",
     "build:asmjs": "cargo b --target asmjs-unknown-emscripten --release && rsync target/asmjs-unknown-emscripten/release/emscripten.js dist/asmjs/",

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Wasm</title>
+</head>
+<body>
+
+<script type="text/javascript">
+  var Module = {};
+
+  var prng = {
+    seed: (i) => Module.prng_new(i),
+    destroy: (ptr) => Module.prng_destroy(ptr),
+    getInteger: (ptr) => Module.next_unsigned_integer(ptr),
+    getFloat: (ptr) => Module.next_unsigned_float(ptr)
+  };
+
+  function fetchAndInstantiate(url, importObject) {
+    return fetch(url).then(response =>
+      response.arrayBuffer()
+    ).then(bytes =>
+      WebAssembly.instantiate(bytes, importObject)
+    ).then(results =>
+      results.instance
+    );
+  }
+
+  fetchAndInstantiate('../dist/wasm/browser-standalone.wasm', {})
+  .then( mod => {
+    Module.prng_new = mod.exports.prng_new;
+    Module.prng_destroy = mod.exports.prng_destroy;
+    Module.next_unsigned_integer = mod.exports.next_unsigned_integer;
+    Module.next_unsigned_float = mod.exports.next_unsigned_float;
+  })
+  .then( () => {
+    var ptr = prng.seed(1);
+    var container = document.createElement('div');
+    container.textContent = `integer: ${prng.getInteger(ptr)} float: ${prng.getFloat(ptr)}`
+    document.body.appendChild(container);
+    prng.destroy(ptr);
+  });
+
+</script>
+</body>
+</html>
