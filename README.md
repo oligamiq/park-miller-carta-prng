@@ -6,6 +6,8 @@ This is a multi-language repository, demonstrating C-Rust-Node.js-Web interopera
 It utilizes Rust as a build system, in order to compile [the original C implemetations by Robin Whittle](http://www.firstpr.com.au/dsp/rand31/). A faithful Rust port is also included, cross-compilable to asm.js and WebAssembly via [Emscripten](https://github.com/kripken/emscripten), for use in Node.js and browsers.
 
 ## Using from browser
+Add with `npm i --save --only=production park-miller-carta-prng`.
+
 index.html:
 ```html
 <!DOCTYPE html>
@@ -35,7 +37,7 @@ index.html:
     );
   }
 
-  fetchAndInstantiate('dist/wasm/browser-standalone.wasm', {})
+  fetchAndInstantiate('node_modules/park-miller-carta-prng/dist/wasm/browser-standalone.wasm', {})
   .then( mod => {
     Module.prng_new = mod.exports.prng_new;
     Module.prng_destroy = mod.exports.prng_destroy;
