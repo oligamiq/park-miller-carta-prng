@@ -1,6 +1,6 @@
 {
   "name": "park-miller-carta-prng",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "An efficient Pseudo-Random Number Generator",
   "main": "dist/index.js",
   "repository": {
