@@ -8,8 +8,8 @@ pub mod c_api {
     use std::ptr;
 
     #[no_mangle]
-    pub extern "C" fn prng_new(seed: u64) -> *mut PRNG {
-        Box::into_raw(Box::new(PRNG::new(seed)))
+    pub extern "C" fn prng_new(seed: u32) -> *mut PRNG {
+        Box::into_raw(Box::new(PRNG::new(seed as u64)))
     }
 
     #[no_mangle]
@@ -22,13 +22,13 @@ pub mod c_api {
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn next_unsigned_integer(ptr: *mut PRNG) -> u64 {
+    pub unsafe extern "C" fn next_unsigned_integer(ptr: *mut PRNG) -> u32 {
         let prng = {
             assert!(!ptr.is_null());
             &mut *ptr
         };
 
-        prng.next_unsigned_integer()
+        prng.next_unsigned_integer() as u32
     }
     #[no_mangle]
     pub unsafe extern "C" fn next_unsigned_float(ptr: *mut PRNG) -> f32 {

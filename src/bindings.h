@@ -12,11 +12,11 @@ extern "C" {
 
 float next_unsigned_float(PRNG *ptr);
 
-uint64_t next_unsigned_integer(PRNG *ptr);
+uint32_t next_unsigned_integer(PRNG *ptr);
 
 void prng_destroy(PRNG *ptr);
 
-PRNG *prng_new(uint64_t seed);
+PRNG *prng_new(uint32_t seed);
 
 extern unsigned long rand31pmc_next();
 
