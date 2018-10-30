@@ -29,11 +29,11 @@
   "license": "MIT",
   "devDependencies": {
     "benchmark": "^2.1.4",
-    "coffeescript": "^2.1.1",
+    "coffeescript": "^2.3.2",
     "del-cli": "^1.1.0",
     "make-dir-cli": "^1.0.0",
-    "node-addon-api": "^1.2.0",
-    "node-gyp": "^3.6.2"
+    "node-addon-api": "^1.5.0",
+    "node-gyp": "^3.8.0"
   },
   "gypfile": false,
   "dependencies": {
