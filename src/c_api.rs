@@ -17,7 +17,7 @@ pub mod c_api {
         if ptr.is_null() {
             return;
         }
-        Box::from_raw(ptr);
+        std::mem::drop(Box::from_raw(ptr));
         ptr = ptr::null_mut();
     }
 

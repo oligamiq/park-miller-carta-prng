@@ -18,10 +18,9 @@ exclude = [
 [dependencies]
 
 [target.'cfg(not(target_os = "emscripten"))'.build-dependencies]
-bindgen = "0.43.0"
-cc = "1.0.25"
-cbindgen = "0.6.6"
-
+bindgen = "0.69"
+cc = "1.0"
+cbindgen = "0.26"
 
 [lib]
 name = "prng"
